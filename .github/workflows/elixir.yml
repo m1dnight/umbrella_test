@@ -45,6 +45,7 @@ jobs:
         uses: ./build_cache
         with:
           mix_env: ${{ matrix.mix_env }}
+          os: ${{ runner.os }}
           paths: |
             ${{ github.workspace }}/deps
             ${{ github.workspace }}/_build
