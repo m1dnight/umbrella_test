@@ -46,7 +46,7 @@ jobs:
       - uses: ./.github/workflows/_build_cache.yaml
         with:
           mix_env: ${{ matrix.mix_env}}
-          
+
       # get the dependencies and build 
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
