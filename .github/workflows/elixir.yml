@@ -18,8 +18,14 @@ jobs:
         uses: actions/checkout@v4
       # install deps 
       - uses: ./.github/workflows/os_dependencies 
-
-
+      # setup build cache
+      - uses: ./.github/workflows/cache
+        with:
+          os: ${{ runner.os }}
+          mix_env: ${{ matrix.mix_env }}
+          paths: |
+            ${{ github.workspace }}/deps 
+            ${{ github.workspace }}/_build
       # # setup the build cache
       # - name: use build cache
       #   uses: actions/cache@v4
