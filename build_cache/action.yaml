@@ -13,7 +13,6 @@ inputs:
     description: os of the runner
     required: true
     type: string
-
 runs:
   using: "composite"
   steps:   
@@ -21,4 +20,5 @@ runs:
       uses: actions/cache@v4
       with:
         key: ${{ inputs.os }}-build-${{ inputs.mix_env }}-${{ hashFiles('**/mix.lock') }}
-        path: {{ inputs.paths }}
+        path: | 
+          ${{ inputs.paths }}
