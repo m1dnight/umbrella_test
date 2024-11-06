@@ -1,8 +1,20 @@
-name: setup build cache 
+name: setup build cache
 description: setup the build cache for the mix environment
-runs: 
-  using: "composite" 
-  steps: 
-    - name: test 
-      run: echo "hey there"
-      shell: bash 
+inputs:
+  path:
+    description: path of the cache
+    required: true
+  mix_env:
+    description: mix env
+    required: true
+  os:
+    description: os
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: use build cache
+      uses: actions/cache@v4
+      with:
+        key: ${{ inputs.os }}-build-${{ inputs.mix_env }}-${{ hashFiles('**/mix.lock') }}
+        path: {{ inputs.path }}
