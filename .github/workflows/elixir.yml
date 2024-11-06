@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v4
 
       # configure the build cache for this environment
-      - uses: ./.github/workflows/_build_cache.yaml
+      - uses: ./.github/workflows/_build_cache
         with:
           mix_env: ${{ matrix.mix_env}}
 
