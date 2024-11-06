@@ -38,10 +38,15 @@ jobs:
         mix_env: ["prod", "dev", "test"]
     runs-on: ubuntu-latest
     steps:
+      # checkout the repo
+      - name: checkout the repo 
+        uses: actions/checkout@v4
+
       # configure the build cache for this environment
       - uses: ./.github/workflows/_build_cache.yaml
         with:
           mix_env: ${{ matrix.mix_env}}
+          
       # get the dependencies and build 
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
