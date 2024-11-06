@@ -7,27 +7,27 @@ on: [push]
 #-------------------------------------------------------------------------------
 # Cache step
 
-checkout: &checkout
-  name: Check out the repository to the runner
-  uses: actions/checkout@v4
+# checkout: &checkout
+#   name: Check out the repository to the runner
+#   uses: actions/checkout@v4
 
 
-cache: &cache
-  name: use build cache
-  uses: actions/cache@v4
-  with:
-    key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-    path: |
-      ${{ github.workspace }}/deps 
-      ${{ github.workspace }}/_build
+# cache: &cache
+  # name: use build cache
+  # uses: actions/cache@v4
+  # with:
+  #   key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
+  #   path: |
+  #     ${{ github.workspace }}/deps 
+  #     ${{ github.workspace }}/_build
 
 
-setup_beam: &setup_beam
-  name: Run a script
-  uses: erlef/setup-beam@v1
-  with:
-    otp-version: "27.1"
-    elixir-version: "1.17"
+# setup_beam: &setup_beam
+#   name: Run a script
+#   uses: erlef/setup-beam@v1
+#   with:
+#     otp-version: "27.1"
+#     elixir-version: "1.17"
 
 #-------------------------------------------------------------------------------
 jobs:
@@ -38,9 +38,11 @@ jobs:
         mix_env: ["prod", "dev", "test"]
     runs-on: ubuntu-latest
     steps:
-      - <<: *checkout
-      - <<: *cache
-      - <<: *setup_beam
+      # configure the build cache for this environment
+      - uses: ./.github/workflows/_build_cache.yml
+        with:
+          mix_env: ${{ matrix.mix_env}}
+      # get the dependencies and build 
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
 
