@@ -1,0 +1,33 @@
+# name: Setup caching
+
+# on:
+#   workflow_call:
+#     inputs:
+#       mix_env:
+#         required: true
+#         type: string
+
+# jobs:
+#   cache:
+#     name: configure build cache
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: use build cache
+#         uses: actions/cache@v4
+#         with:
+#             key: ${{ runner.os }}-build-${{ inputs.mix_env }}-${{ hashFiles('**/mix.lock') }}
+#             path: |
+#                 ${{ github.workspace }}/deps 
+#                 ${{ github.workspace }}/_build
+
+name: setup build cache 
+description: setup the build cache for the mix environment
+inputs: 
+outputs: 
+
+runs: 
+  using: "composite" 
+  steps: 
+    - name: test 
+      run: echo "hey there"
+      shell: bash 
