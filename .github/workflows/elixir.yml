@@ -52,8 +52,8 @@ jobs:
         with:
           key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('mix.lock') }}
           path: |
-            ~/work/elixpeer/elixpeer/deps 
-            ~/work/elixpeer/elixpeer/_build
+            "$GITHUB_WORKSPACE"/deps 
+            "$GITHUB_WORKSPACE"/_build 
       - run: MIX_ENV=${{matrix.mix_env}} mix credo --strict
       - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
 
@@ -88,7 +88,7 @@ jobs:
         with:
           key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('mix.lock') }}
           path: |
-            ~/work/elixpeer/elixpeer/deps 
-            ~/work/elixpeer/elixpeer/_build
+            "$GITHUB_WORKSPACE"/deps 
+            "$GITHUB_WORKSPACE"/_build 
       - run: MIX_ENV=${{matrix.mix_env}} mix test
       - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
