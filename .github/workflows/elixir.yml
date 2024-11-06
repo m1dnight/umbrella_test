@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # configure the build cache for this environment
-      - uses: ./.github/workflows/_build_cache.yml
+      - uses: ./.github/workflows/_build_cache.yaml
         with:
           mix_env: ${{ matrix.mix_env}}
       # get the dependencies and build 
