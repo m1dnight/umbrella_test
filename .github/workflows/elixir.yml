@@ -45,7 +45,9 @@ jobs:
         uses: ./build_cache
         with:
           mix_env: ${{ matrix.mix_env }}
-          migration_files_source: 'file://db/migrations'
+          paths: |
+            ${{ github.workspace }}/deps
+            ${{ github.workspace }}/_build
       # # configure the build cache for this environment
       # - uses: ./.github/workflows/_build_cache
       #   with:

@@ -5,6 +5,10 @@ inputs:
     description: mix env
     required: true
     type: string
+  paths:
+    description: paths to cache
+    required: true
+    type: string
 
 runs:
   using: "composite"
@@ -12,6 +16,9 @@ runs:
     - name: test 
       run: echo ${{ inputs.mix_env }}
       shell: bash
+    - name: test 
+      run: echo ${{ inputs.paths }}
+      shell: bash      
     # - name: use build cache
     #   uses: actions/cache@v4
     #   with:
