@@ -11,13 +11,19 @@ jobs:
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
+        
       - name: Run a script
         uses: erlef/setup-beam@v1
         with:
           otp-version: "27.1"
           elixir-version: "1.17"
+
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
+
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
+
+      - run: echo $GITHUB_WORKSPACE
+      
       - name: cache build and deps
         uses: actions/cache@v4
         with:
