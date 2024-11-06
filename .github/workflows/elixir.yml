@@ -42,7 +42,7 @@ jobs:
       - name: checkout the repo 
         uses: actions/checkout@v4
       - name: test 
-        run: echo $GITHUB_ACTION_PATH
+        run: env
         shell: bash
       # # configure the build cache for this environment
       # - uses: ./.github/workflows/_build_cache
