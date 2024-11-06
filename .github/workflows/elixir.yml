@@ -5,29 +5,6 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 
 #-------------------------------------------------------------------------------
-# Cache step
-
-checkout: &checkout
-  name: Check out the repository to the runner
-  uses: actions/checkout@v4
-
-cache: &cache
-  name: use build cache
-  uses: actions/cache@v4
-  with:
-    key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-    path: |
-      ${{ github.workspace }}/deps 
-      ${{ github.workspace }}/_build
-
-setup_beam: &setup_beam
-  name: Run a script
-  uses: erlef/setup-beam@v1
-  with:
-    otp-version: "27.1"
-    elixir-version: "1.17"
-
-#-------------------------------------------------------------------------------
 jobs:
   compile:
     name: Setup the environment
