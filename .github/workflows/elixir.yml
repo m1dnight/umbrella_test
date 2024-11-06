@@ -16,8 +16,10 @@ jobs:
       # checkout the repo
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
-      # install deps 
-      - uses: ./.github/workflows/os_dependencies 
+
+      # install deps
+      - uses: ./.github/workflows/os_dependencies
+
       # setup build cache
       - uses: ./.github/workflows/cache
         with:
@@ -26,119 +28,96 @@ jobs:
           paths: |
             ${{ github.workspace }}/deps 
             ${{ github.workspace }}/_build
-      # # setup the build cache
-      # - name: use build cache
-      #   uses: actions/cache@v4
-      #   with:
-      #     key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-      #     path: |
-      #       ${{ github.workspace }}/deps 
-      #       ${{ github.workspace }}/_build
 
-      # # setup the beam
-      # - name: configure beam
-      #   uses: erlef/setup-beam@v1
-      #   with:
-      #     otp-version: "27.1"
-      #     elixir-version: "1.17"
+      # fetch deps and compile
+      - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
 
-      # # fetch deps and compile
-      # - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
+      - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
 
-      # - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
+  lint:
+    needs: [compile]
+    name: lint codebase
+    strategy:
+      matrix:
+        mix_env: ["dev"]
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
 
-  # lint:
-  #   needs: [compile]
-  #   name: lint codebase
-  #   strategy:
-  #     matrix:
-  #       mix_env: ["dev"]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # checkout the repo
-  #     - name: Check out the repository to the runner
-  #       uses: actions/checkout@v4
+      # install deps
+      - uses: ./.github/workflows/os_dependencies
 
-  #     # setup the build cache
-  #     - name: use build cache
-  #       uses: actions/cache@v4
-  #       with:
-  #         key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-  #         path: |
-  #           ${{ github.workspace }}/deps 
-  #           ${{ github.workspace }}/_build
+      # setup build cache
+      - uses: ./.github/workflows/cache
+        with:
+          os: ${{ runner.os }}
+          mix_env: ${{ matrix.mix_env }}
+          paths: |
+            ${{ github.workspace }}/deps 
+            ${{ github.workspace }}/_build
 
-  #     # setup the beam
-  #     - name: configure beam
-  #       uses: erlef/setup-beam@v1
-  #       with:
-  #         otp-version: "27.1"
-  #         elixir-version: "1.17"
+      # run mix credo
+      - run: MIX_ENV=${{matrix.mix_env}} mix credo
 
-  #     # run mix credo 
-  #     - run: MIX_ENV=${{matrix.mix_env}} mix credo 
+      # check formatting
+      - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
 
-  #     # check formatting
-  #     - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
+      # dialyzer 
+      - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
 
-  # test:
-  #   needs: [compile]
-  #   name: run tests
-  #   strategy:
-  #     matrix:
-  #       mix_env: ["test"]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # checkout the repo
-  #     - name: Check out the repository to the runner
-  #       uses: actions/checkout@v4
+  test:
+    needs: [compile]
+    name: run tests
+    strategy:
+      matrix:
+        mix_env: ["test"]
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
 
-  #     # setup the build cache
-  #     - name: use build cache
-  #       uses: actions/cache@v4
-  #       with:
-  #         key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-  #         path: |
-  #           ${{ github.workspace }}/deps 
-  #           ${{ github.workspace }}/_build
+      # install deps
+      - uses: ./.github/workflows/os_dependencies
 
-  #     # setup the beam
-  #     - name: configure beam
-  #       uses: erlef/setup-beam@v1
-  #       with:
-  #         otp-version: "27.1"
-  #         elixir-version: "1.17"
+      # setup build cache
+      - uses: ./.github/workflows/cache
+        with:
+          os: ${{ runner.os }}
+          mix_env: ${{ matrix.mix_env }}
+          paths: |
+            ${{ github.workspace }}/deps 
+            ${{ github.workspace }}/_builds
 
-  #     # run mix credo 
-  #     - run: MIX_ENV=${{matrix.mix_env}} mix test
+      # run mix test
+      - run: MIX_ENV=${{matrix.mix_env}} mix test
 
-  # docs:
-  #   needs: [compile]
-  #   name: generate documentation
-  #   strategy:
-  #     matrix:
-  #       mix_env: ["prod"]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     # checkout the repo
-  #     - name: Check out the repository to the runner
-  #       uses: actions/checkout@v4
+  docs:
+    needs: [compile]
+    name: generate documentation
+    strategy:
+      matrix:
+        mix_env: ["prod"]
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
 
-  #     # setup the build cache
-  #     - name: use build cache
-  #       uses: actions/cache@v4
-  #       with:
-  #         key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-  #         path: |
-  #           ${{ github.workspace }}/deps 
-  #           ${{ github.workspace }}/_build
+      # install deps
+      - uses: ./.github/workflows/os_dependencies
 
-  #     # setup the beam
-  #     - name: configure beam
-  #       uses: erlef/setup-beam@v1
-  #       with:
-  #         otp-version: "27.1"
-  #         elixir-version: "1.17"
+      # setup build cache
+      - uses: ./.github/workflows/cache
+        with:
+          os: ${{ runner.os }}
+          mix_env: ${{ matrix.mix_env }}
+          paths: |
+            ${{ github.workspace }}/deps 
+            ${{ github.workspace }}/_builds
 
-  #     # run mix credo 
-  #     - run: MIX_ENV=${{matrix.mix_env}} mix docs
+
+      # run mix docs
+      - run: MIX_ENV=${{matrix.mix_env}} mix docs
