@@ -42,7 +42,7 @@ jobs:
       - name: checkout the repo 
         uses: actions/checkout@v4
       - id: foo
-        uses: _actions/build_cache
+        uses: ./build_cache
       # # configure the build cache for this environment
       # - uses: ./.github/workflows/_build_cache
       #   with:
