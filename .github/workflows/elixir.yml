@@ -7,7 +7,7 @@ on: [push]
 #-------------------------------------------------------------------------------
 jobs:
   compile:
-    name: Setup the environment
+    name: compile code
     strategy:
       matrix:
         mix_env: ["prod", "dev", "test"]
@@ -39,7 +39,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
 
   lint:
-    name: Setup the environment
+    name: lint codebase
     strategy:
       matrix:
         mix_env: ["prod"]
@@ -70,6 +70,36 @@ jobs:
 
       # check formatting
       - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
+
+  test:
+    name: run tests
+    strategy:
+      matrix:
+        mix_env: ["test"]
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      # setup the build cache
+      - name: use build cache
+        uses: actions/cache@v4
+        with:
+          key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
+          path: |
+            ${{ github.workspace }}/deps 
+            ${{ github.workspace }}/_build
+
+      # setup the beam
+      - name: configure beam
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27.1"
+          elixir-version: "1.17"
+
+      # run mix credo 
+      - run: MIX_ENV=${{matrix.mix_env}} mix test 
   # lint:
   #   name: Lint code
   #   needs: [compile]
