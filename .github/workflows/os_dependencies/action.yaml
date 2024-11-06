@@ -1,0 +1,14 @@
+name: configure os dependencies
+description: configure os dependencies
+runs: 
+  using: "composite"
+  steps:
+    - name: install system dependencies 
+      shell: bash 
+      run: sudo apt-get install -y libsodium-dev
+    # setup the beam
+    - name: configure beam
+      uses: erlef/setup-beam@v1
+      with:
+        otp-version: "27.1"
+        elixir-version: "1.17"

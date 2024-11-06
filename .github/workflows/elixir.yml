@@ -16,8 +16,9 @@ jobs:
       # checkout the repo
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
-      # setup the cache 
-      - uses: ./.github/workflows/setup 
+      # install deps 
+      - uses: ./.github/workflows/os_dependencies 
+
 
       # # setup the build cache
       # - name: use build cache
