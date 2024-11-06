@@ -99,7 +99,7 @@ jobs:
     name: generate documentation
     strategy:
       matrix:
-        mix_env: ["prod"]
+        mix_env: ["dev"]
     runs-on: ubuntu-latest
     steps:
       # checkout the repo
