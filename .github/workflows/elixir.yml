@@ -39,6 +39,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
 
   lint:
+    needs: [compile]
     name: lint codebase
     strategy:
       matrix:
@@ -72,6 +73,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
 
   test:
+    needs: [compile]
     name: run tests
     strategy:
       matrix:
