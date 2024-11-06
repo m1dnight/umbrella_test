@@ -13,31 +13,32 @@ jobs:
         mix_env: ["prod", "dev", "test"]
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/setup 
       # checkout the repo
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
+      # setup the cache 
+      - uses: ./.github/workflows/setup 
 
-      # setup the build cache
-      - name: use build cache
-        uses: actions/cache@v4
-        with:
-          key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
-          path: |
-            ${{ github.workspace }}/deps 
-            ${{ github.workspace }}/_build
+      # # setup the build cache
+      # - name: use build cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     key: ${{ runner.os }}-build-${{ matrix.mix_env }}-${{ hashFiles('**/mix.lock') }}
+      #     path: |
+      #       ${{ github.workspace }}/deps 
+      #       ${{ github.workspace }}/_build
 
-      # setup the beam
-      - name: configure beam
-        uses: erlef/setup-beam@v1
-        with:
-          otp-version: "27.1"
-          elixir-version: "1.17"
+      # # setup the beam
+      # - name: configure beam
+      #   uses: erlef/setup-beam@v1
+      #   with:
+      #     otp-version: "27.1"
+      #     elixir-version: "1.17"
 
-      # fetch deps and compile
-      - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
+      # # fetch deps and compile
+      # - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
 
-      - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
+      # - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
 
   # lint:
   #   needs: [compile]
