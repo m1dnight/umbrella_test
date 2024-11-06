@@ -19,15 +19,3 @@
 #             path: |
 #                 ${{ github.workspace }}/deps 
 #                 ${{ github.workspace }}/_build
-
-name: setup build cache 
-description: setup the build cache for the mix environment
-inputs: 
-outputs: 
-
-runs: 
-  using: "composite" 
-  steps: 
-    - name: test 
-      run: echo "hey there"
-      shell: bash 

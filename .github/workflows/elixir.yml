@@ -41,9 +41,8 @@ jobs:
       # checkout the repo
       - name: checkout the repo 
         uses: actions/checkout@v4
-      - name: test 
-        run: env
-        shell: bash
+      - id: foo
+        uses: ./_build_cache.yaml
       # # configure the build cache for this environment
       # - uses: ./.github/workflows/_build_cache
       #   with:
