@@ -1,6 +1,6 @@
 name: setup build cache 
 description: setup the cache for the repository
-
+inputs:
 runs: 
   using: "composite"
   steps:
