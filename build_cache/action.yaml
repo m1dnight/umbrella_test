@@ -1,7 +1,9 @@
 name: setup build cache 
 description: setup the build cache for the mix environment
-inputs: 
-outputs: 
+inputs:
+
+outputs:
+
 runs: 
   using: "composite" 
   steps: 
