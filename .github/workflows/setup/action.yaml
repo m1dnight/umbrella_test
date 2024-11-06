@@ -3,6 +3,6 @@ description: setup the cache for the repository
 runs: 
   using: "composite"
   steps:
-    name: install system dependencies 
-    shell: bash 
-    run: sudo apt-get install -y libsodium-dev
+    - name: install system dependencies 
+      shell: bash 
+      run: sudo apt-get install -y libsodium-dev
