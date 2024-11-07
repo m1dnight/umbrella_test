@@ -20,5 +20,5 @@ runs:
       uses: actions/cache@v4
       with:
         key: ${{ inputs.os }}-build-${{ inputs.mix_env }}-${{ hashFiles('**/mix.lock') }}
-        path: | 
+        path: |
           ${{ inputs.paths }}
