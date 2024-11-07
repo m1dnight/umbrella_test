@@ -41,7 +41,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
   #-----------------------------------------------------------------------------
   # Run linting jobs on the code base.
-  # This includes credo, formatting, and dialyzer.
+  # This includes credo, formatting, trailing whitespaces, and dialyzer.
   # Reuses the cache from above, and updates the cache when the job is done.
 
   lint:
@@ -79,6 +79,9 @@ jobs:
 
       # dialyzer
       - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
+
+      # whitespace check 
+      - run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
   #-----------------------------------------------------------------------------
   # Run the test suite against the code base.
 
