@@ -1,5 +1,5 @@
-name: configure os dependencies
-description: configure os dependencies
+name: configure the elixir installation
+description: configure the elixir installation
 runs: 
   using: "composite"
   steps:

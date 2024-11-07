@@ -8,6 +8,7 @@ jobs:
   #-----------------------------------------------------------------------------
   # Compile the code base for the different mix environments
   # and cache the output of the _build and deps directories.
+
   compile:
     name: compile code
     strategy:
@@ -24,7 +25,7 @@ jobs:
 
       # install erlang/elixir/protobuf
       - uses: ./.github/workflows/elxir_setup
-      
+
       # setup build cache
       - uses: ./.github/workflows/cache
         with:
@@ -42,6 +43,7 @@ jobs:
   # Run linting jobs on the code base.
   # This includes credo, formatting, and dialyzer.
   # Reuses the cache from above, and updates the cache when the job is done.
+
   lint:
     needs: [compile]
     name: lint codebase
@@ -76,6 +78,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
   #-----------------------------------------------------------------------------
   # Run the test suite against the code base.
+
   test:
     needs: [compile]
     name: run tests
@@ -107,6 +110,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix test
   #-----------------------------------------------------------------------------
   # Generate the documentation of the code base.
+
   docs:
     needs: [compile]
     name: generate documentation
