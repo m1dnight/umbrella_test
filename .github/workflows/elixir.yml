@@ -1,6 +1,18 @@
+# This action runs on the code base for every new pull request that is goig to be merged into base. 
+
+# The action is divided into four jobs:
+
+#   - Compile the deps and program for the different mix environments.
+#   - Run linting jobs on the code base (credo, formatting, dialyzer, and whitespace check).
+#   - Run the test suite against the code base.
+
 name: Compile, test, lint, and deploy
 
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+# on:
+#   pull_request:
+#     branches: [ "base" ]
 
 on: [push]
 
