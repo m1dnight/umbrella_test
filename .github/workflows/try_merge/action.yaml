@@ -22,7 +22,8 @@ runs:
     # checkout the repo with depth 0 to get all the branches.
     - name: Check out the repository to the runner
       uses: actions/checkout@v4
-      fetch-depth: 0
+      with: 
+        fetch-depth: 0
 
     # get the current commit hash and store in the environment under `$SHA`
     - name: get the current commit hash 
