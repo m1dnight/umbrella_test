@@ -26,8 +26,11 @@ runs:
     # get the current commit hash 
     - name: get the current commit hash 
       id: commit_hash
+      shell: bash 
       run: echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
+
     - name: echo the current commit hash 
+      shell: bash 
       run: echo ${{ steps.commit_hash.outputs.commit_hash }}
     # checkout the target branch
     # - name: checkout the target branch 
