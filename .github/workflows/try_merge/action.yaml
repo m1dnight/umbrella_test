@@ -23,12 +23,18 @@ inputs:
 runs:
   using: "composite"
   steps:
+    # get the current commit hash 
+    - name: get the current commit hash 
+      id: commit_hash
+      run: echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
+    - name: echo the current commit hash 
+      run: echo ${{ steps.commit_hash.outputs.commit_hash }}
     # checkout the target branch
-    - name: checkout the target branch 
-      shell: /usr/bin/bash -e {0}
-      run: git checkout ${{ inputs.merge_into }}
+    # - name: checkout the target branch 
+    #   shell: bash
+    #   run: git checkout ${{ inputs.merge_into }}
 
-    # try and merge the commit into the target branch
-    - name: merge the commit into the checked out branch 
-      shell: /usr/bin/bash -e {0}
-      run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge ${{ inputs.merge_commit }}
+    # # try and merge the commit into the target branch
+    # - name: merge the commit into the checked out branch 
+    #   shell: bash
+    #   run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge ${{ inputs.merge_commit }}
