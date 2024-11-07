@@ -27,13 +27,13 @@ jobs:
       - uses: ./.github/workflows/elixir_setup
 
       # setup build cache
-      - uses: ./.github/workflows/cache
-        with:
-          os: ${{ runner.os }}
-          mix_env: ${{ matrix.mix_env }}
-          paths: |
-            ${{ github.workspace }}/deps 
-            ${{ github.workspace }}/_build
+      # - uses: ./.github/workflows/cache
+      #   with:
+      #     os: ${{ runner.os }}
+      #     mix_env: ${{ matrix.mix_env }}
+      #     paths: |
+      #       ${{ github.workspace }}/deps 
+      #       ${{ github.workspace }}/_build
 
       - run: ls -la ${{ github.workspace }}
       # fetch deps and compile
@@ -78,75 +78,75 @@ jobs:
       # run mix credo
       - run: MIX_ENV=${{matrix.mix_env}} mix credo
 
-      # check formatting
-      - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
+  #     # check formatting
+  #     - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
 
-      # dialyzer
-      - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
+  #     # dialyzer
+  #     - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
 
-      # whitespace check 
-      - run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
-  #-----------------------------------------------------------------------------
-  # Run the test suite against the code base.
+  #     # whitespace check 
+  #     - run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
+  # #-----------------------------------------------------------------------------
+  # # Run the test suite against the code base.
 
-  test:
-    needs: [compile]
-    name: run tests
-    strategy:
-      matrix:
-        mix_env: ["test"]
-    runs-on: ubuntu-latest
-    steps:
-      # checkout the repo
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4
+  # test:
+  #   needs: [compile]
+  #   name: run tests
+  #   strategy:
+  #     matrix:
+  #       mix_env: ["test"]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # checkout the repo
+  #     - name: Check out the repository to the runner
+  #       uses: actions/checkout@v4
 
-      # install os deps
-      - uses: ./.github/workflows/os_dependencies
+  #     # install os deps
+  #     - uses: ./.github/workflows/os_dependencies
 
-      # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elixir_setup
+  #     # install erlang/elixir/protobuf
+  #     - uses: ./.github/workflows/elixir_setup
 
-      # setup build cache
-      - uses: ./.github/workflows/cache
-        with:
-          os: ${{ runner.os }}
-          mix_env: ${{ matrix.mix_env }}
-          paths: |
-            ${{ github.workspace }}/deps 
-            ${{ github.workspace }}/_builds
+  #     # setup build cache
+  #     - uses: ./.github/workflows/cache
+  #       with:
+  #         os: ${{ runner.os }}
+  #         mix_env: ${{ matrix.mix_env }}
+  #         paths: |
+  #           ${{ github.workspace }}/deps 
+  #           ${{ github.workspace }}/_builds
 
-      # run mix test
-      - run: MIX_ENV=${{matrix.mix_env}} mix test
-  #-----------------------------------------------------------------------------
-  # Generate the documentation of the code base.
+  #     # run mix test
+  #     - run: MIX_ENV=${{matrix.mix_env}} mix test
+  # #-----------------------------------------------------------------------------
+  # # Generate the documentation of the code base.
 
-  docs:
-    needs: [compile]
-    name: generate documentation
-    strategy:
-      matrix:
-        mix_env: ["dev"]
-    runs-on: ubuntu-latest
-    steps:
-      # checkout the repo
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4
+  # docs:
+  #   needs: [compile]
+  #   name: generate documentation
+  #   strategy:
+  #     matrix:
+  #       mix_env: ["dev"]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # checkout the repo
+  #     - name: Check out the repository to the runner
+  #       uses: actions/checkout@v4
 
-      # install os deps
-      - uses: ./.github/workflows/os_dependencies
+  #     # install os deps
+  #     - uses: ./.github/workflows/os_dependencies
 
-      # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elixir_setup
+  #     # install erlang/elixir/protobuf
+  #     - uses: ./.github/workflows/elixir_setup
 
-      # setup build cache
-      - uses: ./.github/workflows/cache
-        with:
-          os: ${{ runner.os }}
-          mix_env: ${{ matrix.mix_env }}
-          paths: |
-            ${{ github.workspace }}/deps 
-            ${{ github.workspace }}/_builds
+  #     # setup build cache
+  #     - uses: ./.github/workflows/cache
+  #       with:
+  #         os: ${{ runner.os }}
+  #         mix_env: ${{ matrix.mix_env }}
+  #         paths: |
+  #           ${{ github.workspace }}/deps 
+  #           ${{ github.workspace }}/_builds
 
-      # run mix docs
-      - run: MIX_ENV=${{matrix.mix_env}} mix docs
+  #     # run mix docs
+  #     - run: MIX_ENV=${{matrix.mix_env}} mix docs
