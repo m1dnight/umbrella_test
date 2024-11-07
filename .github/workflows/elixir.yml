@@ -33,7 +33,7 @@ jobs:
       - uses: ./.github/workflows/try_merge
         with: 
           merge_into: "base"
-          merge_commit: ${{ steps.branch.commit.sha }}
+          merge_commit: "foo"
 
   # #-----------------------------------------------------------------------------
   # # Compile the code base for the different mix environments
