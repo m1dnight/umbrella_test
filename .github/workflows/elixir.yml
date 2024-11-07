@@ -35,21 +35,6 @@ jobs:
           merge_into: "base"
           merge_commit: ${{ steps.branch.commit.sha }}
 
-      # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elixir_setup
-
-      # setup build cache
-      - uses: ./.github/workflows/cache
-        with:
-          os: ${{ runner.os }}
-          mix_env: ${{ matrix.mix_env }}
-          paths: |
-            ${{ github.workspace }}/deps
-            ${{ github.workspace }}/_build
-
-      # fetch deps and compile
-      - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
-      - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
   # #-----------------------------------------------------------------------------
   # # Compile the code base for the different mix environments
   # # and cache the output of the _build and deps directories.
