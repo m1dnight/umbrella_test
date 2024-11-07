@@ -23,20 +23,18 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # get the current commit hash 
+    # get the current commit hash and store in the environment under `$SHA`
     - name: get the current commit hash 
       id: commit_hash
       shell: bash 
       run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-    - name: echo the current commit hash 
-      shell: bash 
-      run: echo $SHA
-    # checkout the target branch
-    # - name: checkout the target branch 
-    #   shell: bash
-    #   run: git checkout ${{ inputs.merge_into }}
 
-    # # try and merge the commit into the target branch
-    # - name: merge the commit into the checked out branch 
-    #   shell: bash
-    #   run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge ${{ inputs.merge_commit }}
+    # checkout the target branch
+    - name: checkout the target branch 
+      shell: bash
+      run: git checkout ${{ inputs.merge_into }}
+
+    # try and merge the commit into the target branch
+    - name: merge the commit into the checked out branch 
+      shell: bash
+      run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge $SHA
