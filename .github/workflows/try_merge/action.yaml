@@ -6,10 +6,6 @@ inputs:
     required: true
     default: "next"
 
-  merge_commit:
-    description: "mix environment to use"
-    required: true
-
   git_user:
     description: "paths to cache"
     required: false
