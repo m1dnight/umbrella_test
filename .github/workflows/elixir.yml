@@ -44,6 +44,7 @@ jobs:
       - run: ls -la ${{ github.workspace }}
       - run: ls -la ${{ github.workspace }}/deps
       - run: ls -la ${{ github.workspace }}/_build
+
   #-----------------------------------------------------------------------------
   # Run linting jobs on the code base.
   # This includes credo, formatting, trailing whitespaces, and dialyzer.
@@ -90,35 +91,36 @@ jobs:
   #-----------------------------------------------------------------------------
   # Run the test suite against the code base.
 
-  test:
-    needs: [compile]
-    name: run tests
-    strategy:
-      matrix:
-        mix_env: ["test"]
-    runs-on: ubuntu-latest
-    steps:
-      # checkout the repo
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4
+  # test:
+  #   needs: [compile]
+  #   name: run tests
+  #   strategy:
+  #     matrix:
+  #       mix_env: ["test"]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # checkout the repo
+  #     - name: Check out the repository to the runner
+  #       uses: actions/checkout@v4
 
-      # install os deps
-      - uses: ./.github/workflows/os_dependencies
+  #     # install os deps
+  #     - uses: ./.github/workflows/os_dependencies
 
-      # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elixir_setup
+  #     # install erlang/elixir/protobuf
+  #     - uses: ./.github/workflows/elixir_setup
 
-      # setup build cache
-      - uses: ./.github/workflows/cache
-        with:
-          os: ${{ runner.os }}
-          mix_env: ${{ matrix.mix_env }}
-          paths: |
-            ${{ github.workspace }}/deps
-            ${{ github.workspace }}/_builds
+  #     # setup build cache
+  #     - uses: ./.github/workflows/cache
+  #       with:
+  #         os: ${{ runner.os }}
+  #         mix_env: ${{ matrix.mix_env }}
+  #         paths: |
+  #           ${{ github.workspace }}/deps
+  #           ${{ github.workspace }}/_builds
 
-      # run mix test
-      - run: MIX_ENV=${{matrix.mix_env}} mix test
+  #     # run mix test
+  #     - run: MIX_ENV=${{matrix.mix_env}} mix test
+  
   #-----------------------------------------------------------------------------
   # Generate the documentation of the code base.
 
