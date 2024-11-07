@@ -38,6 +38,9 @@ jobs:
       # fetch deps and compile
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
 
+      - run: ls -la ${{ github.workspace }}/deps
+      - run: ls -la ${{ github.workspace }}/_build
+
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
   #-----------------------------------------------------------------------------
   # Run linting jobs on the code base.
