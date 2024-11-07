@@ -120,13 +120,13 @@ jobs:
 
   #     # run mix test
   #     - run: MIX_ENV=${{matrix.mix_env}} mix test
-  
+
   #-----------------------------------------------------------------------------
   # Generate the documentation of the code base.
 
   docs:
     needs: [compile]
-    name: generate documentation
+    name: compile docs
     strategy:
       matrix:
         mix_env: ["dev"]
@@ -149,7 +149,7 @@ jobs:
           mix_env: ${{ matrix.mix_env }}
           paths: |
             ${{ github.workspace }}/deps
-            ${{ github.workspace }}/_builds
+            ${{ github.workspace }}/_build
 
       # run mix docs
       - run: MIX_ENV=${{matrix.mix_env}} mix docs

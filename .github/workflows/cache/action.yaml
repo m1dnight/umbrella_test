@@ -11,7 +11,7 @@ inputs:
     mix_env:
         description: "mix environment to use"
         required: true
-            
+
 runs:
   using: "composite"
   steps:
