@@ -32,8 +32,7 @@ jobs:
       # install os deps
       - uses: ./.github/workflows/try_merge
         with: 
-          merge_into: "base"
-          merge_commit: "foo"
+          merge_into: "main"
 
   # #-----------------------------------------------------------------------------
   # # Compile the code base for the different mix environments
