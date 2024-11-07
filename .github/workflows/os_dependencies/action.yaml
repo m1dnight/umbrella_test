@@ -1,43 +1,8 @@
-# name: try and merge the current branch with another branch
-# description: try and merge the current branch with another branch
-# inputs:
-#   merge_into:
-#     description: "The operating system to use"
-#     required: true
-#     default: "next"
-
-#   merge_commit:
-#     description: "mix environment to use"
-#     required: true
-
-#   git_user:
-#     description: "paths to cache"
-#     required: false
-#     default: "Github Actions"
-
-#   git_email:
-#     description: "mix environment to use"
-#     required: false
-#     default: "nobody@localhost"
-
-# runs:
-#   using: "composite"
-#   steps:
-#     - name: checkout the target branch 
-#       run: git checkout ${{ inputs.merge_into }}
-#     - name: merge the commit into the checked out branch 
-#       run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge ${{ inputs.merge_commit }}
-name: setup the build cache
-description: setup the build cache
-inputs:
-    merge_into:
-        description: "The operating system to use"
-        required: true
-    merge_commit:
-        description: "paths to cache"
-        required: true
+name: try and merge
+description: configure os dependencies
 runs:
   using: "composite"
   steps:
-    - name: use build cache
-      run: echo "hey there"
+    - name: install system dependencies
+      shell: bash
+      run: sudo apt-get install -y libsodium-dev protobuf-compiler
