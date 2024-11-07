@@ -4,8 +4,10 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on: [push]
 
-#-------------------------------------------------------------------------------
 jobs:
+  #-----------------------------------------------------------------------------
+  # Compile the code base for the different mix environments
+  # and cache the output of the _build and deps directories.
   compile:
     name: compile code
     strategy:
@@ -17,9 +19,12 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      # install deps
+      # install os deps
       - uses: ./.github/workflows/os_dependencies
 
+      # install erlang/elixir/protobuf
+      - uses: ./.github/workflows/elxir_setup
+      
       # setup build cache
       - uses: ./.github/workflows/cache
         with:
@@ -33,7 +38,10 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
 
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
-
+  #-----------------------------------------------------------------------------
+  # Run linting jobs on the code base.
+  # This includes credo, formatting, and dialyzer.
+  # Reuses the cache from above, and updates the cache when the job is done.
   lint:
     needs: [compile]
     name: lint codebase
@@ -46,8 +54,8 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      # install deps
-      - uses: ./.github/workflows/os_dependencies
+      # # install deps
+      # - uses: ./.github/workflows/os_dependencies
 
       # setup build cache
       - uses: ./.github/workflows/cache
@@ -64,9 +72,10 @@ jobs:
       # check formatting
       - run: MIX_ENV=${{matrix.mix_env}} mix format --check-formatted
 
-      # dialyzer 
+      # dialyzer
       - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
-
+  #-----------------------------------------------------------------------------
+  # Run the test suite against the code base.
   test:
     needs: [compile]
     name: run tests
@@ -79,8 +88,11 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      # install deps
+      # install os deps
       - uses: ./.github/workflows/os_dependencies
+
+      # install erlang/elixir/protobuf
+      - uses: ./.github/workflows/elxir_setup
 
       # setup build cache
       - uses: ./.github/workflows/cache
@@ -93,7 +105,8 @@ jobs:
 
       # run mix test
       - run: MIX_ENV=${{matrix.mix_env}} mix test
-
+  #-----------------------------------------------------------------------------
+  # Generate the documentation of the code base.
   docs:
     needs: [compile]
     name: generate documentation
@@ -106,8 +119,11 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      # install deps
+      # install os deps
       - uses: ./.github/workflows/os_dependencies
+
+      # install erlang/elixir/protobuf
+      - uses: ./.github/workflows/elxir_setup
 
       # setup build cache
       - uses: ./.github/workflows/cache
@@ -117,7 +133,6 @@ jobs:
           paths: |
             ${{ github.workspace }}/deps 
             ${{ github.workspace }}/_builds
-
 
       # run mix docs
       - run: MIX_ENV=${{matrix.mix_env}} mix docs
