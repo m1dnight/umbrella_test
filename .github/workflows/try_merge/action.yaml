@@ -23,7 +23,5 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: checkout the target branch 
-      run: git checkout ${{ inputs.merge_into }}
-    - name: merge the commit into the checked out branch 
-      run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge ${{ inputs.merge_commit }}
+    - run: git checkout ${{ inputs.merge_into }}
+    - run: git -c user.name="${{ inputs.git_user }}" -c user.email="${{ inputs.git_email }}" merge ${{ inputs.merge_commit }}
