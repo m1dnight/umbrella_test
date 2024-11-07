@@ -24,6 +24,11 @@ runs:
       id: commit_hash
       shell: bash 
       run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+      
+    - name: get the current commit hash 
+      id: commit_hash
+      shell: bash 
+      run: git branch --all
 
     # checkout the target branch
     - name: checkout the target branch 
