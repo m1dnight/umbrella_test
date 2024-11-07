@@ -38,6 +38,7 @@ jobs:
 
       - run: ls -la ${{ github.workspace }}
       - run: pwd
+      - run: MIX_ENV=${{matrix.mix_env}} mix deps tree
       # fetch deps and compile
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
 
