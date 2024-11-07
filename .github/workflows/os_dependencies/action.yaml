@@ -1,8 +1,8 @@
 name: configure os dependencies
 description: configure os dependencies
-runs: 
+runs:
   using: "composite"
   steps:
-    - name: install system dependencies 
-      shell: bash 
+    - name: install system dependencies
+      shell: bash
       run: sudo apt-get install -y libsodium-dev protobuf-compiler
