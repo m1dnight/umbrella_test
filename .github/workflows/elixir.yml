@@ -24,7 +24,7 @@ jobs:
       - uses: ./.github/workflows/os_dependencies
 
       # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elxir_setup
+      - uses: ./.github/workflows/elixir_setup
 
       # setup build cache
       - uses: ./.github/workflows/cache
@@ -91,11 +91,11 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      # install os deps
-      - uses: ./.github/workflows/os_dependencies
+      # # install os deps
+      # - uses: ./.github/workflows/os_dependencies
 
-      # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elxir_setup
+      # # install erlang/elixir/protobuf
+      # - uses: ./.github/workflows/elixir_setup
 
       # setup build cache
       - uses: ./.github/workflows/cache
@@ -123,11 +123,11 @@ jobs:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
 
-      # install os deps
-      - uses: ./.github/workflows/os_dependencies
+      # # install os deps
+      # - uses: ./.github/workflows/os_dependencies
 
-      # install erlang/elixir/protobuf
-      - uses: ./.github/workflows/elxir_setup
+      # # install erlang/elixir/protobuf
+      # - uses: ./.github/workflows/elxir_setup
 
       # setup build cache
       - uses: ./.github/workflows/cache
