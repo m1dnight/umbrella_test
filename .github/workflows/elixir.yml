@@ -26,14 +26,14 @@ jobs:
       # install erlang/elixir/protobuf
       - uses: ./.github/workflows/elixir_setup
 
-      # setup build cache
-      - uses: ./.github/workflows/cache
-        with:
-          os: ${{ runner.os }}
-          mix_env: ${{ matrix.mix_env }}
-          paths: |
-            ${{ github.workspace }}/deps
-            ${{ github.workspace }}/_build
+      # # setup build cache
+      # - uses: ./.github/workflows/cache
+      #   with:
+      #     os: ${{ runner.os }}
+      #     mix_env: ${{ matrix.mix_env }}
+      #     paths: |
+      #       ${{ github.workspace }}/deps
+      #       ${{ github.workspace }}/_build
 
       - run: ls -la ${{ github.workspace }}
       # fetch deps and compile
