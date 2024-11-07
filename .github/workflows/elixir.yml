@@ -13,8 +13,7 @@ jobs:
     name: compile code
     strategy:
       matrix:
-        mix_env: ["dev"]
-        # mix_env: ["prod", "dev", "test"]
+        mix_env: ["prod", "dev", "test"]
     runs-on: ubuntu-latest
     steps:
       # checkout the repo
