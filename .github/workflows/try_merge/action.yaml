@@ -27,11 +27,10 @@ runs:
     - name: get the current commit hash 
       id: commit_hash
       shell: bash 
-      run: echo "::set-output name=commit_hash::$(git rev-parse HEAD)"
-
+      run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
     - name: echo the current commit hash 
       shell: bash 
-      run: echo ${{ steps.commit_hash.outputs.commit_hash }}
+      run: echo $SHA
     # checkout the target branch
     # - name: checkout the target branch 
     #   shell: bash
