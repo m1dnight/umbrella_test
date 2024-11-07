@@ -18,6 +18,6 @@ runs:
     - name: use build cache
       uses: actions/cache@v4
       with:
-        key: ${{ inputs.os }}-build-${{ inputs.mix_env }}-${{ hashFiles('**/mix.lock') }}
+        key: ${{ inputs.os }}-build-${{ inputs.mix_env }}-${{ hashFiles('mix.lock') }}
         path: |
           ${{ inputs.paths }}
