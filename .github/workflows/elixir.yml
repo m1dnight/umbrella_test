@@ -26,9 +26,10 @@ jobs:
       # checkout the repo
       - name: Check out the repository to the runner
         uses: actions/checkout@v4
-              
+
       # install os deps
       - uses: ./.github/workflows/try_merge
+        continue-on-error: true
         with:
           merge_into: "main"
 
