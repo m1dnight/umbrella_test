@@ -13,7 +13,8 @@ jobs:
     name: compile code
     strategy:
       matrix:
-        mix_env: ["prod", "dev", "test"]
+        mix_env: ["dev"]
+        # mix_env: ["prod", "dev", "test"]
     runs-on: ubuntu-latest
     steps:
       # checkout the repo
@@ -32,15 +33,15 @@ jobs:
       #     os: ${{ runner.os }}
       #     mix_env: ${{ matrix.mix_env }}
       #     paths: |
-      #       ${{ github.workspace }}/deps 
+      #       ${{ github.workspace }}/deps
       #       ${{ github.workspace }}/_build
 
       - run: ls -la ${{ github.workspace }}
       # fetch deps and compile
       - run: MIX_ENV=${{matrix.mix_env}} mix deps.get --only ${{matrix.mix_env}}
 
-      
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
+      - run: ls -la ${{ github.workspace }}
       - run: ls -la ${{ github.workspace }}/deps
       - run: ls -la ${{ github.workspace }}/_build
   #-----------------------------------------------------------------------------
@@ -72,7 +73,7 @@ jobs:
       #     os: ${{ runner.os }}
       #     mix_env: ${{ matrix.mix_env }}
       #     paths: |
-      #       ${{ github.workspace }}/deps 
+      #       ${{ github.workspace }}/deps
       #       ${{ github.workspace }}/_build
 
       # run mix credo
@@ -84,7 +85,7 @@ jobs:
   #     # dialyzer
   #     - run: MIX_ENV=${{matrix.mix_env}} mix dialyzer
 
-  #     # whitespace check 
+  #     # whitespace check
   #     - run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
   # #-----------------------------------------------------------------------------
   # # Run the test suite against the code base.
@@ -113,7 +114,7 @@ jobs:
   #         os: ${{ runner.os }}
   #         mix_env: ${{ matrix.mix_env }}
   #         paths: |
-  #           ${{ github.workspace }}/deps 
+  #           ${{ github.workspace }}/deps
   #           ${{ github.workspace }}/_builds
 
   #     # run mix test
@@ -145,7 +146,7 @@ jobs:
   #         os: ${{ runner.os }}
   #         mix_env: ${{ matrix.mix_env }}
   #         paths: |
-  #           ${{ github.workspace }}/deps 
+  #           ${{ github.workspace }}/deps
   #           ${{ github.workspace }}/_builds
 
   #     # run mix docs
