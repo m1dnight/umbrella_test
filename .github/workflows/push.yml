@@ -12,5 +12,4 @@ jobs:
         target: [dev, test, prod]
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/compile.yaml
-      - run: echo "yeet"
+      - uses: ./.github/workflows/compile
