@@ -47,3 +47,17 @@ jobs:
       mix-env: "dev"
       elixir-version: "1.17"
       otp-version: "27.1"
+
+  make_release:
+    needs: [compile, lint, test, docs, try_merge]
+    permissions:
+      contents: write
+      id-token: write
+      pages: write
+    uses: ./.github/workflows/build_release.yaml
+    with:
+      mix-env: "prod"
+      elixir-version: "1.17"
+      otp-version: "27.1"
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
