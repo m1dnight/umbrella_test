@@ -11,9 +11,19 @@ on:
         required: false
 
 jobs:
+  cache: 
+    runs-on: ubuntu-latest 
+    steps:
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        key: foo 
+        paths: ${{ github.workspace }}/deps
+        
   compile:
     runs-on: ubuntu-latest
     steps:
+    - 
     - name: compile
       shell: bash 
       run: echo "yeet"
