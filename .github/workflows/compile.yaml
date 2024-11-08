@@ -2,22 +2,21 @@ name: Compile workflow
 
 on:
   workflow_call:
-    # inputs:
-    #   mix-env:
-    #     required: true
-    #     type: string
-    # secrets:
-    #   token:
-    #     required: false
+    inputs:
+      mix-env:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: false
 
 jobs:        
   compile:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "compiling"
-        shell: bash 
-    # - uses: actions/checkout@v4
-    # - uses: actions/cache@v4
-    #   with:
-    #     path: ${{ github.workspace }}/deps
-    #     key: cache
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/deps
+          key: cache
+      - run: MIX_ENV=${{ inputs.mix-env }} mix deps.get

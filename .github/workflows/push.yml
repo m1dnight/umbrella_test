@@ -6,4 +6,9 @@ on: [push]
 
 jobs:
   compile:
+    strategy:
+      matrix:
+        target: [dev, test, prod]
     uses: ./.github/workflows/compile.yaml
+    with:
+      mix-env: ${{ matrix.target }}
