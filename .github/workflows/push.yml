@@ -9,6 +9,6 @@ jobs:
     strategy:
       matrix:
         target: [dev, test, prod]
-    uses: anoma/anoma/.github/compile.yaml
+    uses: m1dnight/umbrella_test/.github/compile.yaml
     with:
       mix-env: ${{ matrix.target }}
