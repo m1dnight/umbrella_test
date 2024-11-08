@@ -33,7 +33,7 @@ jobs:
           elixir-version: ${{ inputs.elixir-version }}
           otp-version: ${{ inputs.otp-version }}
 
-      - name: install necessary apt packages
+      - name: install apt packages
         shell: bash
         run: sudo apt-get install -y libsodium-dev protobuf-compiler
 
