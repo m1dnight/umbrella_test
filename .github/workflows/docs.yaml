@@ -35,7 +35,7 @@ jobs:
       - name: install apt packages
         uses: ./.github/actions/os_setup
 
-    - name: "compile docs"
+      - name: "compile docs"
         shell: bash
         run: make docs-release
-  
+
