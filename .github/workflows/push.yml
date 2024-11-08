@@ -15,6 +15,7 @@ jobs:
       elixir-version: "1.17"
       otp-version: "27.1"
   lint:
+    needs: compile
     uses: ./.github/workflows/lint.yaml
     with:
       mix-env: "dev"
