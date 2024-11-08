@@ -6,9 +6,10 @@ on: [push]
 
 jobs:
   compile:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         target: [dev, test, prod]
-    uses: ./.github/workflows/compile.yaml
-    with:
-      mix-env: ${{ matrix.target }}
+    steps:
+      - uses: ./.github/workflows/compile.yaml
+      - run: echo "yeet"
