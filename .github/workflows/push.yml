@@ -38,6 +38,10 @@ jobs:
 
   docs:
     needs: compile
+    permissions:
+      contents: write
+      id-token: write
+      pages: write
     uses: ./.github/workflows/docs.yaml
     with:
       mix-env: "dev"
