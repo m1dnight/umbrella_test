@@ -22,6 +22,6 @@ jobs:
     uses: ./.github/workflows/lint.yaml
     with:
       mix-env: "dev"
-      elixir-version: ${{env.ELIXIR_VERSION}}
-      otp-version: ${{env.OTP_VERSION}}
+      elixir-version: "1.17"
+      otp-version: "27.1"
 
