@@ -24,7 +24,9 @@ jobs:
 
       - uses: actions/cache@v4
         with:
-          path: ${{ github.workspace }}/deps
+          path: |
+            ${{ github.workspace }}/deps
+            ${{ github.workspace }}/_build
           key: ${{ runner.os }}-build-${{ inputs.mix-env }}-${{ hashFiles('mix.lock') }}
 
       - name: setup elixir
