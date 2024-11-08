@@ -13,6 +13,9 @@ defmodule UmbrellaTest.MixProject do
         # The main page in the docs
         main: "First",
         extras: ["README.md"]
+      ],
+      dialyzer: [
+        plt_local_path: "plts/",
       ]
     ]
   end
