@@ -1,4 +1,4 @@
-name: Compile workflow
+name: Generate docs
 on:
   workflow_call:
     inputs:
@@ -11,11 +11,8 @@ on:
       otp-version:
         required: true
         type: string
-    secrets:
-      token:
-        required: false
 jobs:
-  compile:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: checkout the repository
@@ -38,8 +35,6 @@ jobs:
       - name: install apt packages
         uses: ./.github/actions/os_setup
 
-      - name: fetch elixir dependencies
-        run: MIX_ENV=${{ inputs.mix-env }} mix deps.get
-
-      - name: compile elixir project
-        run: MIX_ENV=${{ inputs.mix-env }} mix compile
+      - name: mix test
+        shell: bash
+        run: MIX_ENV=${{inputs.mix-env}} mix test
