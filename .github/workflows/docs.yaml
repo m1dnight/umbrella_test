@@ -35,10 +35,11 @@ jobs:
       - name: install apt packages
         uses: ./.github/actions/os_setup
 
-      - name: compile docs
-        shell: bash
-        run: make docs-release
-
+      # - name: compile docs
+      #   shell: bash
+      #   run: make docs-release
+      - name: generate docs
+        run: MIX_ENV=${{ inputs.mix-env }} mix docs
   publish-docs:
     needs: compile-docs
     runs-on: ubuntu-latest
@@ -63,9 +64,11 @@ jobs:
       - name: install apt packages
         uses: ./.github/actions/os_setup
 
-      - name: compile docs
-        shell: bash
-        run: make docs-release
+      # - name: compile docs
+      #   shell: bash
+      #   run: make docs-release
+      - name: generate docs
+        run: MIX_ENV=${{ inputs.mix-env }} mix docs
 
       - name: setup github pages
         uses: actions/configure-pages@v5
