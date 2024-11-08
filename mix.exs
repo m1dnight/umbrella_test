@@ -15,7 +15,7 @@ defmodule UmbrellaTest.MixProject do
         extras: ["README.md"]
       ],
       dialyzer: [
-        plt_local_path: "plts/",
+        plt_local_path: "plts/"
       ]
     ]
   end
