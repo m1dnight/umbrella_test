@@ -33,7 +33,7 @@ jobs:
 
   docs:
     needs: compile
-    uses: ./.github/workflows/test.yaml
+    uses: ./.github/workflows/docs.yaml
     with:
       mix-env: "test"
       elixir-version: "1.17"
