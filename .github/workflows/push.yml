@@ -30,3 +30,11 @@ jobs:
       mix-env: "test"
       elixir-version: "1.17"
       otp-version: "27.1"
+
+  docs:
+    needs: compile
+    uses: ./.github/workflows/test.yaml
+    with:
+      mix-env: "test"
+      elixir-version: "1.17"
+      otp-version: "27.1"

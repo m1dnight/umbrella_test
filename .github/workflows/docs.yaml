@@ -35,6 +35,7 @@ jobs:
       - name: install apt packages
         uses: ./.github/actions/os_setup
 
-      - name: mix test
+    - name: "compile docs"
         shell: bash
-        run: MIX_ENV=${{inputs.mix-env}} mix test
+        run: make docs-release
+  
