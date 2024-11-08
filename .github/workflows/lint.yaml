@@ -28,7 +28,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/plts
-          key: ${{ runner.os }}-plt-${{ inputs.mix-env }}-${{ hashFiles('*') }}
+          key: ${{ runner.os }}-plt-${{ inputs.mix-env }}-${{ hashFiles('**/*.ex') }}
       - name: setup elixir
         uses: ./.github/actions/elixir_setup
         with:
