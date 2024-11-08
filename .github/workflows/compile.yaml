@@ -19,4 +19,13 @@ jobs:
         with:
           path: ${{ github.workspace }}/deps
           key: cache
-      - run: MIX_ENV=${{ inputs.mix-env }} mix deps.get
+
+      - name: install necessary apt packages
+        shell: bash
+        run: sudo apt-get install -y libsodium-dev protobuf-compiler
+      
+      - name: fetch elixir dependencies
+        run: MIX_ENV=${{ inputs.mix-env }} mix deps.get
+
+      - name: compile elixir project
+        run: MIX_ENV=${{ inputs.mix-env }} mix compile
