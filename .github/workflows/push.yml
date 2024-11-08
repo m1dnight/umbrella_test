@@ -5,6 +5,11 @@ env:
   OTP_VERSION: "1.17"
   ELIXIR_VERSION: "27.1"
 jobs:
+  try_merge:
+    uses: ./.github/workflows/try_merge.yaml
+    with: 
+      merge_with: "main"
+      
   compile:
     strategy:
       matrix:
