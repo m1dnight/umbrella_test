@@ -9,6 +9,6 @@ jobs:
     strategy:
       matrix:
         target: [dev, test, prod]
-    uses: m1dnight/umbrella_test/.github/compile.yaml
+    uses: .github/compile.yaml@${{ github.ref_name }}
     with:
       mix-env: ${{ matrix.target }}
