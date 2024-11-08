@@ -53,6 +53,7 @@ jobs:
       - run: MIX_ENV=${{matrix.mix_env}} mix compile --warnings-as-errors
 
   testme:
+    needs: [compile]
     name: compile code
     strategy:
       matrix:
@@ -80,7 +81,37 @@ jobs:
 
       # fetch deps and compile
       - run: ls -la
-      - run: touch deps/icreatedthis.txt
+      - run: touch _build/icreatedthis.txt
+
+  testme2:
+    needs: [testme]
+    name: compile code
+    strategy:
+      matrix:
+        mix_env: ["prod"]
+    runs-on: ubuntu-latest
+    steps:
+      # checkout the repo
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+
+      # install os deps
+      - uses: ./.github/workflows/os_dependencies
+
+      # install erlang/elixir/protobuf
+      - uses: ./.github/workflows/elixir_setup
+
+      # setup build cache
+      - uses: ./.github/workflows/cache
+        with:
+          os: ${{ runner.os }}
+          mix_env: ${{ matrix.mix_env }}
+          paths: |
+            ${{ github.workspace }}/deps
+            ${{ github.workspace }}/_build
+
+      # fetch deps and compile
+      - run: ls -la _build
   # #-----------------------------------------------------------------------------
   # # Run linting jobs on the code base.
   # # This includes credo, formatting, trailing whitespaces, and dialyzer.
