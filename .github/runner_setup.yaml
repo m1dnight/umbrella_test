@@ -1,0 +1,15 @@
+# This workflow sets up the runner. 
+# 
+# It install OS dependencies, sets up the Erlang environment, and installs Elixir.
+name: Runner setup
+
+on:
+  workflow_call:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+    - name: install apt packages
+      shell: bash
+      run: sudo apt-get install -y libsodium-dev protobuf-compiler
