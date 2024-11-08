@@ -1,0 +1,19 @@
+name: Compile workflow
+
+on:
+  workflow_call:
+    inputs:
+      mix-env:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: false
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+    - name: compile
+      shell: bash 
+      run: echo "yeet"
