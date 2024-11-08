@@ -9,6 +9,6 @@ jobs:
     strategy:
       matrix:
         target: [dev, test, prod]
-    uses: ./.github/compile.yaml@${{ github.ref_name }}
+    uses: ./.github/compile.yaml
     with:
       mix-env: ${{ matrix.target }}
