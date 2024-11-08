@@ -20,9 +20,11 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout the repository
+        uses: actions/checkout@v4
 
-      - uses: actions/cache@v4
+      - name: setup deps and _build cache
+        uses: actions/cache@v4
         with:
           path: |
             ${{ github.workspace }}/deps
@@ -36,8 +38,7 @@ jobs:
           otp-version: ${{ inputs.otp-version }}
 
       - name: install apt packages
-        shell: bash
-        run: sudo apt-get install -y libsodium-dev protobuf-compiler
+        uses: ./.github/actions/os_setup
 
       - name: fetch elixir dependencies
         run: MIX_ENV=${{ inputs.mix-env }} mix deps.get
