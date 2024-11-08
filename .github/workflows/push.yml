@@ -6,6 +6,7 @@ env:
   ELIXIR_VERSION: "27.1"
 jobs:
   try_merge:
+    name: Try Merge with main
     uses: ./.github/workflows/try_merge.yaml
     with:
       merge_with: "main"
@@ -14,6 +15,7 @@ jobs:
     strategy:
       matrix:
         target: [dev, test, prod]
+    name: "Compile ${{ matrix.target }}"
     uses: ./.github/workflows/compile.yaml
     with:
       mix-env: ${{ matrix.target }}
@@ -22,6 +24,7 @@ jobs:
 
   lint:
     needs: compile
+    name: "Lint"
     uses: ./.github/workflows/lint.yaml
     with:
       mix-env: "dev"
@@ -30,6 +33,7 @@ jobs:
 
   test:
     needs: compile
+    name: Test
     uses: ./.github/workflows/test.yaml
     with:
       mix-env: "test"
@@ -38,6 +42,7 @@ jobs:
 
   docs:
     needs: compile
+    name: Generate docs
     uses: ./.github/workflows/docs.yaml
     with:
       mix-env: "test"
