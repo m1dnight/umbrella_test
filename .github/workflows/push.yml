@@ -9,6 +9,6 @@ jobs:
     strategy:
       matrix:
         target: [dev, test, prod]
-    uses: ./.github/workflows/runner_setup.yaml
+    uses: ./.github/compile.yaml
     with:
       mix-env: ${{ matrix.target }}
