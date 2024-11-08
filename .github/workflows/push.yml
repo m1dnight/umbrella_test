@@ -1,9 +1,6 @@
 name: Push
-
 run-name: Push
-
 on: [push]
-
 env:
   OTP_VERSION: "1.17"
   ELIXIR_VERSION: "27.1"
@@ -31,4 +28,3 @@ jobs:
       mix-env: "test"
       elixir-version: "1.17"
       otp-version: "27.1"
-

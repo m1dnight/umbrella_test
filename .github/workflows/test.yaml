@@ -1,5 +1,4 @@
 name: Run tests
-
 on:
   workflow_call:
     inputs:
@@ -12,17 +11,12 @@ on:
       otp-version:
         required: true
         type: string
-    secrets:
-      token:
-        required: false
-
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: checkout the repository
         uses: actions/checkout@v4
-
       - name: setup deps and _build cache
         uses: actions/cache@v4
         with:
@@ -30,16 +24,13 @@ jobs:
             ${{ github.workspace }}/deps
             ${{ github.workspace }}/_build
           key: ${{ runner.os }}-build-${{ inputs.mix-env }}-${{ hashFiles('mix.lock') }}
-
       - name: setup elixir
         uses: ./.github/actions/elixir_setup
         with:
           elixir-version: ${{ inputs.elixir-version }}
           otp-version: ${{ inputs.otp-version }}
-
       - name: install apt packages
         uses: ./.github/actions/os_setup
-
       - name: mix test
         shell: bash
         run: MIX_ENV=${{inputs.mix-env}} mix test
