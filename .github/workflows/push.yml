@@ -6,15 +6,15 @@ env:
   ELIXIR_VERSION: "27.1"
 jobs:
   try_merge:
-    uses: ./.github/workflows/try_merge.yaml
-    with: 
+    uses: ./.github/workflows/reusable/try_merge.yaml
+    with:
       merge_with: "main"
-      
+
   compile:
     strategy:
       matrix:
         target: [dev, test, prod]
-    uses: ./.github/workflows/compile.yaml
+    uses: ./.github/workflows/reusable/compile.yaml
     with:
       mix-env: ${{ matrix.target }}
       elixir-version: "1.17"
@@ -22,7 +22,7 @@ jobs:
 
   lint:
     needs: compile
-    uses: ./.github/workflows/lint.yaml
+    uses: ./.github/workflows/reusable/lint.yaml
     with:
       mix-env: "dev"
       elixir-version: "1.17"
@@ -30,7 +30,7 @@ jobs:
 
   test:
     needs: compile
-    uses: ./.github/workflows/test.yaml
+    uses: ./.github/workflows/reusable/test.yaml
     with:
       mix-env: "test"
       elixir-version: "1.17"
@@ -38,7 +38,7 @@ jobs:
 
   docs:
     needs: compile
-    uses: ./.github/workflows/docs.yaml
+    uses: ./.github/workflows/reusable/docs.yaml
     with:
       mix-env: "test"
       elixir-version: "1.17"
