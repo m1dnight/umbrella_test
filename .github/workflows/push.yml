@@ -14,3 +14,10 @@ jobs:
       mix-env: ${{ matrix.target }}
       elixir-version: "1.17"
       otp-version: "27.1"
+  lint:
+    uses: ./.github/workflows/lint.yaml
+    with:
+      mix-env: "dev"
+      elixir-version: "1.17"
+      otp-version: "27.1"
+
