@@ -67,6 +67,7 @@ jobs:
       # - name: compile docs
       #   shell: bash
       #   run: make docs-release
+
       - name: generate docs
         run: MIX_ENV=${{ inputs.mix-env }} mix docs
 
