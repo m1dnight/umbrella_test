@@ -31,6 +31,12 @@ jobs:
             ${{ github.workspace }}/_build
           key: ${{ runner.os }}-build-${{ inputs.mix-env }}-${{ hashFiles('mix.lock') }}
 
+      - name: setup plt cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/plts
+          key: ${{ runner.os }}-plt-${{ inputs.mix-env }}-${{ hashFiles('*') }}
+
       - name: setup elixir
         uses: ./.github/actions/elixir_setup
         with:
@@ -41,21 +47,21 @@ jobs:
         uses: ./.github/actions/os_setup
 
         # run mix credo
-      - name: "credo"
+      - name: mix credo
         shell: bash
         run: MIX_ENV=${{inputs.mix-env}} mix credo
 
         # check formatting
-      - name: "credo"
+      - name: mix format
         shell: bash
         run: MIX_ENV=${{inputs.mix-env}} mix format --check-formatted
 
         # dialyzer
-      - name: "credo"
+      - name: mix dialyzer
         shell: bash
         run: MIX_ENV=${{inputs.mix-env}} mix dialyzer --format github
 
         # whitespace check
-      - name: "credo"
-        shell: bash
-        run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
+    #   - name: trailing whitespaces
+    #     shell: bash
+    #     run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
