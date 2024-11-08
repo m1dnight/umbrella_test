@@ -6,9 +6,4 @@ on: [push]
 
 jobs:
   compile:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target: [dev, test, prod]
-    steps:
-      - uses: ./.github/workflows/compile
+    uses: ./.github/workflows/compile.yaml

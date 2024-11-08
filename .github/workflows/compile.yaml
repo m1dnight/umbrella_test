@@ -2,13 +2,13 @@ name: Compile workflow
 
 on:
   workflow_call:
-    inputs:
-      mix-env:
-        required: true
-        type: string
-    secrets:
-      token:
-        required: false
+    # inputs:
+    #   mix-env:
+    #     required: true
+    #     type: string
+    # secrets:
+    #   token:
+    #     required: false
 
 jobs:        
   compile:
