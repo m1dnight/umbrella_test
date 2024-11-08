@@ -27,8 +27,8 @@ jobs:
           path: ${{ github.workspace }}/deps
           key: ${{ runner.os }}-build-${{ inputs.mix-env }}-${{ hashFiles('mix.lock') }}
 
-      - uses: ./.github/actions/elixir_setup
-        name: setup elixir
+      - name: setup elixir
+        uses: ./.github/actions/elixir_setup
         with:
           elixir-version: ${{ inputs.elixir-version }}
           otp-version: ${{ inputs.otp-version }}
