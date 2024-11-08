@@ -6,24 +6,36 @@ on:
       mix-env:
         required: true
         type: string
+      elixir-version:
+        required: true
+        type: string
+      otp-version:
+        required: true
+        type: string        
     secrets:
       token:
         required: false
 
-jobs:        
+jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/cache@v4
         with:
           path: ${{ github.workspace }}/deps
           key: cache
+
       - uses: ./.github/actions/elixir_setup
+        with:
+          elixir-version: ${{ inputs.elixir-version }}
+          otp-version: ${{ inputs.otp-version }}
+
       - name: install necessary apt packages
         shell: bash
         run: sudo apt-get install -y libsodium-dev protobuf-compiler
-      
+
       - name: fetch elixir dependencies
         run: MIX_ENV=${{ inputs.mix-env }} mix deps.get
 

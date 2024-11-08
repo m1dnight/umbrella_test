@@ -12,5 +12,5 @@ jobs:
     uses: ./.github/workflows/compile.yaml
     with:
       mix-env: ${{ matrix.target }}
-      # elixir_version: "1.17"
-      # otp_version: "27.1"
+      elixir-version: "1.17"
+      otp-version: "27.1"
