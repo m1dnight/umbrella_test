@@ -59,5 +59,3 @@ jobs:
       mix-env: "prod"
       elixir-version: "1.17"
       otp-version: "27.1"
-    secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
