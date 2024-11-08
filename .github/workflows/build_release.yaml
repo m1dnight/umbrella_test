@@ -37,7 +37,7 @@ jobs:
 
       - name: ensure that the release does not exist yet
         env:
-          GH_TOKEN: ${{ github.ref_name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           export RELEASE=$(gh release list --json name | jq '.[] | select(.name == "${{ github.ref_name }}") | .name') ; \
@@ -46,7 +46,7 @@ jobs:
       - name: create the release on github
         continue-on-error: true
         env:
-          GH_TOKEN: ${{ github.ref_name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           gh release create ${{ github.ref_name }} \
