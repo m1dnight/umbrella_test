@@ -17,21 +17,6 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 
 jobs:
-  #-----------------------------------------------------------------------------
-  # Merge the current branch into the `next` branch.
-  try_merge:
-    name: try merge into next
-    runs-on: ubuntu-latest
-    steps:
-      # checkout the repo
-      - name: Check out the repository to the runner
-        uses: actions/checkout@v4
-
-      # install os deps
-      - uses: ./.github/workflows/try_merge
-        continue-on-error: true
-        with:
-          merge_into: "main"
 
   #-----------------------------------------------------------------------------
   # Compile the code base for the different mix environments
@@ -41,7 +26,7 @@ jobs:
     name: compile code
     strategy:
       matrix:
-        mix_env: ["prod", "dev", "test"]
+        mix_env: ["prod"]
     runs-on: ubuntu-latest
     steps:
       # checkout the repo
@@ -71,7 +56,7 @@ jobs:
     name: compile code
     strategy:
       matrix:
-        mix_env: ["prod", "dev", "test"]
+        mix_env: ["prod"]
     runs-on: ubuntu-latest
     steps:
       # checkout the repo
