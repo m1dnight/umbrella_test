@@ -1,4 +1,4 @@
-name: Linting workflow
+name: Run tests
 
 on:
   workflow_call:
@@ -31,12 +31,6 @@ jobs:
             ${{ github.workspace }}/_build
           key: ${{ runner.os }}-build-${{ inputs.mix-env }}-${{ hashFiles('mix.lock') }}
 
-      - name: setup plt cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ github.workspace }}/plts
-          key: ${{ runner.os }}-plt-${{ inputs.mix-env }}-${{ hashFiles('*') }}
-
       - name: setup elixir
         uses: ./.github/actions/elixir_setup
         with:
@@ -46,18 +40,6 @@ jobs:
       - name: install apt packages
         uses: ./.github/actions/os_setup
 
-      - name: mix credo
+      - name: mix test
         shell: bash
-        run: MIX_ENV=${{inputs.mix-env}} mix credo
-
-      - name: mix format
-        shell: bash
-        run: MIX_ENV=${{inputs.mix-env}} mix format --check-formatted
-
-      - name: mix dialyzer
-        shell: bash
-        run: MIX_ENV=${{inputs.mix-env}} mix dialyzer --format github
-
-    #   - name: trailing whitespaces
-    #     shell: bash
-    #     run: git diff-tree --check 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD
+        run: MIX_ENV=${{inputs.mix-env}} mix test
